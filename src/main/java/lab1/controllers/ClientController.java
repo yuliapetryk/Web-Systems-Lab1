@@ -17,7 +17,7 @@ public class ClientController {
 
     @GetMapping("/clients/{clientId}")
     public Map<String, String> getClient(@PathVariable int clientId) {
-        System.out.println("Test");
+        System.out.println("Test2");
         Map<String, String> response = new HashMap<>();
         response.put("id", String.valueOf(clientId));
         response.put("client", clientId + " client");
