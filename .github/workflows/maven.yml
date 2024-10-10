@@ -36,3 +36,6 @@ jobs:
       with:
         name: my-artifact
         path: target/*.jar
+
+    - name: Run Unit Tests
+      run: mvn test
