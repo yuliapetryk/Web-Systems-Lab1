@@ -64,6 +64,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       run : mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-       -Dsonar.projectKey=Lab2WebSystem \
-        -Dsonar.projectName='Lab2WebSystem' \
-        -Dsonar.host.url=http://127.0.0.1:9000
+        -Dsonar.projectKey=Lab2WebSystem \
+        -Dsonar.projectName='Lab2WebSystem'
