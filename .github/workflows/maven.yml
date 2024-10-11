@@ -19,6 +19,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      sonarqube:
+        image: sonarqube:latest
+        ports:
+          - 9000:9000
+        options: --health-cmd="curl --silent --fail http://localhost:9000/sonar/api/system/health | grep 'UP'" --health-interval=10s --health-timeout=10s --health-retries=5
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
@@ -62,7 +69,7 @@ jobs:
     - name: Build and analyze
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: http://sonarqube:9000
       run: |
         mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=Lab2WebSystem \
