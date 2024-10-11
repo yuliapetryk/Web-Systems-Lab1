@@ -36,9 +36,8 @@ jobs:
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
-        GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: 'https://sonarcloud.io/'
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       with:
         args: >
           -Dsonar.organization=yuliapetryk
