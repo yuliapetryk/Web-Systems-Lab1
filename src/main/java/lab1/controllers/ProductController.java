@@ -8,7 +8,7 @@ import java.util.Map;
 @RestController
 public class ProductController {
 
-    private Map<Integer, String> products = new HashMap<>();
+    private final Map<Integer, String> products = new HashMap<>();
 
     public ProductController() {
         products.put(1, "Product 1");
@@ -17,7 +17,6 @@ public class ProductController {
 
     @GetMapping("/products/{productId}")
     public Map<String, String> getProduct(@PathVariable int productId) {
-        System.out.println("Test");
         Map<String, String> response = new HashMap<>();
         response.put("id", String.valueOf(productId));
         response.put("name", productId + " name");
