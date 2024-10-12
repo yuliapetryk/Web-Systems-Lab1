@@ -17,6 +17,11 @@ public class ProductController {
 
     @GetMapping("/products/{productId}")
     public Map<String, String> getProduct(@PathVariable int productId) {
+        int a= 15;
+        int b= 7;
+
+
+        
         Map<String, String> response = new HashMap<>();
         response.put("id", String.valueOf(productId));
         response.put("name", productId + " name");
