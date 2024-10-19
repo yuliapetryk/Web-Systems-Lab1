@@ -1,44 +1,34 @@
 package lab1.controllers;
 
-import org.springframework.web.bind.annotation.*;
+import lab1.entities.Product;
+import lab1.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 public class ProductController {
 
-    private final Map<Integer, String> products = new HashMap<>();
+    private final ProductService productService;
 
-    public ProductController() {
-        products.put(1, "Product 1");
-        products.put(2, "Product 2");
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
-    @GetMapping("/products/{productId}")
-    public Map<String, String> getProduct(@PathVariable int productId) {
-        int a= 15;
-        int b= 7;
-
-
-        
-        Map<String, String> response = new HashMap<>();
-        response.put("id", String.valueOf(productId));
-        response.put("name", productId + " name");
-        return response;
+    @GetMapping("/products/productsAll")
+    public List<Product> getProducts() {
+        List<Product> products = productService.getProducts();
+        return products;
     }
 
-    @PutMapping("/update/{productId}")
-    public Map<String, String> updateProduct(@PathVariable int productId, @RequestParam String name) {
-        Map<String, String> response = new HashMap<>();
-        if (products.containsKey(productId)) {
-            products.put(productId, name);
-            response.put("success", "Product updated successfully");
-            response.put("id", String.valueOf(productId));
-            response.put("name", name);
-        } else {
-            response.put("error", "Product not found");
-        }
-        return response;
+    @GetMapping("/products/{id}")
+    public String getProduct(@PathVariable int id) {
+        String products = productService.getProduct(id);
+        return products;
     }
+
 }
