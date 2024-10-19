@@ -21,14 +21,12 @@ public class ProductController {
 
     @GetMapping("/products/productsAll")
     public List<Product> getProducts() {
-        List<Product> products = productService.getProducts();
-        return products;
+        return productService.getProducts();
     }
 
     @GetMapping("/products/{id}")
     public String getProduct(@PathVariable int id) {
-        String products = productService.getProduct(id);
-        return products;
+        return productService.getProduct(id);
     }
 
 }
