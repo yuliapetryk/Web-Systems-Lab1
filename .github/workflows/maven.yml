@@ -33,15 +33,15 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      with:
-        args: >
-          -Dsonar.organization=yuliapetryk
-          -Dsonar.projectKey=yuliapetryk_Web-Systems-Lab1
+#- name: SonarCloud Scan
+#      uses: sonarsource/sonarcloud-github-action@master
+ #     env:
+  #      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+   #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    #  with:
+     #   args: >
+      #    -Dsonar.organization=yuliapetryk
+       #   -Dsonar.projectKey=yuliapetryk_Web-Systems-Lab1
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v4
