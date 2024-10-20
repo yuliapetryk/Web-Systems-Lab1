@@ -2,7 +2,6 @@ package lab1.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.Objects;
@@ -14,17 +13,10 @@ import java.util.Objects;
 public class Product {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @NonNull
     private long id;
 
     @Column(name = "name")
     private String name;
-
-
-    public Product(
-            String name) {
-        this.name = name;
-    }
 
     public Product() {
 

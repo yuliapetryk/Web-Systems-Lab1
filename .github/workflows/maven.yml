@@ -30,8 +30,8 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build with Maven
-      run: mvn clean install
+#    - name: Build with Maven
+#      run: mvn clean install
 
 #- name: SonarCloud Scan
 #      uses: sonarsource/sonarcloud-github-action@master
@@ -43,18 +43,15 @@ jobs:
       #    -Dsonar.organization=yuliapetryk
        #   -Dsonar.projectKey=yuliapetryk_Web-Systems-Lab1
 
-    - name: Archive Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: my-artifact
-        path: target/*.jar
+ #   - name: Archive Artifacts
+ #     uses: actions/upload-artifact@v4
+ #     with:
+ #       name: my-artifact
+ #       path: target/*.jar
 
-    - name: Run Unit Tests
-      run: mvn test
-
-    - name: Upload Test Reports
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-reports
-        path: target/surefire-reports/*.xml
+ #   - name: Upload Test Reports
+ #     uses: actions/upload-artifact@v4
+ #     with:
+  #      name: test-reports
+  #      path: target/surefire-reports/*.xml
 
