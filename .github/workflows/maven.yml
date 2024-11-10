@@ -34,10 +34,16 @@ jobs:
         run: mvn clean install -DskipTests
 
       - name: Start Spring Boot Application
-        env:
-          NEW_RELIC_AGENT: "./target/newrelic/newrelic.jar"
-          JAR_FILE: "./target/lab1-0.0.1-SNAPSHOT.jar"
-        run: java -javaagent:$NEW_RELIC_AGENT -jar $JAR_FILE &
+        run:
+            java -javaagent:.\target\newrelic\newrelic.jar  -jar .\target\lab1-0.0.1-SNAPSHOT.jar
+
+      - name: Wait for Spring Boot to start
+        run: |
+           until curl --silent --fail http://localhost:8080/; do
+             echo "Waiting for Spring Boot application to start..."
+             sleep 5
+           done
+           echo "Spring Boot application is up!"
 
       - name: Setup K6
         uses: grafana/setup-k6-action@v1
