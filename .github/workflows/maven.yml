@@ -45,7 +45,7 @@ jobs:
         run: mvn clean install -DskipTests
 
       - name: Run Spring Boot app with New Relic
-        run: java  -jar target/lab1-0.0.1-SNAPSHOT.jar
+        run: java  -jar target/lab1-0.0.1-SNAPSHOT.jar &
 
       - name: Setup K6
         uses: grafana/setup-k6-action@v1
