@@ -35,7 +35,7 @@ jobs:
 
       - name: Start Spring Boot Application
         run:
-            java -javaagent:.\target\newrelic\newrelic.jar  -jar .\target\lab1-0.0.1-SNAPSHOT.jar
+            java -javaagent:./target/newrelic/newrelic.jar  -jar ./target/lab1-0.0.1-SNAPSHOT.jar
 
       - name: Wait for Spring Boot to start
         run: |
