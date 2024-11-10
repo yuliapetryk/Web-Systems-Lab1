@@ -23,14 +23,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+
+      - name: Build Java Spring Project
+        run: mvn clean package
+
+      - name: Start Spring Boot Application
+        env:
+          NEW_RELIC_AGENT: "./target/newrelic/newrelic.jar"
+          JAR_FILE: "./target/lab1-0.0.1-SNAPSHOT.jar"
+        run: java -javaagent:$NEW_RELIC_AGENT -jar $JAR_FILE &
+
+      - name: Wait for Spring Boot Application to be ready
+        run: |
+          timeout 30s bash -c '
+          until curl -s http://localhost:8080/products/1 > /dev/null; do
+            echo "Waiting for server..."
+            sleep 5
+          done'
+
       - name: Setup K6
         uses: grafana/setup-k6-action@v1
+
       - name: Run local k6 test
         uses: grafana/run-k6-action@v1
         with:
           path: k6_test/test.js
 
-#    steps:
+
+      #    steps:
 #    - uses: actions/checkout@v4
 #      with:
 #        fetch-depth: 0
