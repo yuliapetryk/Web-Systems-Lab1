@@ -19,8 +19,19 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_PASSWORD: 2503
+          POSTGRES_USER: postgres
+          POSTGRES_DB: new_relic
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready -U postgres" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -36,17 +47,23 @@ jobs:
       - name: Download New Relic agent
         run: curl -L -o newrelic.jar https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic.jar
 
-      - name: Run Spring Boot app
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          for i in {1..30}; do
+            nc -zv 127.0.0.1 5432 && break || sleep 1
+          done
+
+      - name: Run Spring Boot app with New Relic
         run: java -javaagent:target/newrelic/newrelic.jar -jar target/lab1-0.0.1-SNAPSHOT.jar
 
       - name: Setup K6
         uses: grafana/setup-k6-action@v1
 
-
-      - name: Run local k6 test
+      - name: Run local K6 test
         uses: grafana/run-k6-action@v1
         with:
           path: k6_test/test.js
+
 
 
       #    steps:
