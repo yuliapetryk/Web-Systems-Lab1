@@ -37,7 +37,7 @@ jobs:
         run: curl -L -o newrelic.jar https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic.jar
 
       - name: Run Spring Boot app
-        run: java -javaagent:/path/to/newrelic.jar -jar target/lab1-0.0.1-SNAPSHOT.jar
+        run: java -javaagent:target/newrelic/newrelic.jar -jar target/lab1-0.0.1-SNAPSHOT.jar
 
       - name: Setup K6
         uses: grafana/setup-k6-action@v1
