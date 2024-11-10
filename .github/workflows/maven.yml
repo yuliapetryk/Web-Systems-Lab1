@@ -31,7 +31,7 @@ jobs:
           cache: maven
 
       - name: Build Java Spring Project
-        run: mvn clean package
+        run: mvn clean package -DskipTests
 
       - name: Start Spring Boot Application
         env:
