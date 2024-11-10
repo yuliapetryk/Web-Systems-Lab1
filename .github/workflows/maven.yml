@@ -54,9 +54,11 @@ jobs:
         uses: grafana/run-k6-action@v1
         with:
           path: k6_test/test.js
+        env:
+          K6_OUT: "json=k6_results.json"
 
       - name: Save K6 test results as artifact
         uses: actions/upload-artifact@v3
         with:
-            name: k6-test-results
-            path: ./k6_test/results/*.json
+            name: k6-results
+            path: k6_results.json
