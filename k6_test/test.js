@@ -9,7 +9,7 @@ export const options = {
         arbitrary_scenario_name: {
             executor: 'constant-vus',
             vus: 20,
-            duration: '180s',
+            duration: '120s',
         },
     },
 };
@@ -46,9 +46,9 @@ export const options = {
 
 export default function () {
     const id = randomIntBetween(1, 3)
-    const url = `http://localhost:8080/products/${id}`
+    const url = `http://localhost:8085/products/${id}`
     const res = http.get(url);
-    check(res, { 'status was 200': (r) => r.status == 200 });
+    check(res, {'status was 200': (r) => r.status == 200});
 
     //(Math.random() * 3 + 1);
 }
