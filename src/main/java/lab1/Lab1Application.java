@@ -9,11 +9,22 @@ import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 
-//@EnableCaching
+import java.time.Duration;
+@EnableCaching
 @SpringBootApplication
 public class Lab1Application {
 
@@ -38,5 +49,16 @@ public class Lab1Application {
 //
 //		return cacheManager;
 //	}
+
+	@Bean
+	public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+		RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+				.entryTtl(Duration.ofMinutes(10))
+				.disableCachingNullValues();
+
+		return RedisCacheManager.builder(redisConnectionFactory)
+				.cacheDefaults(config)
+				.build();
+	}
 
 }
